@@ -1,0 +1,58 @@
+<form name="premcalc" onsubmit="calculate()">
+Premium: <input id="premium" type="number"></input><br>
+Fees: <input id="fees" type="number"></input><br>
+Installment Fee: <input id="instfee" type="number"></input>
+<button type="submit">Submit</button>
+</form>
+
+<script>
+function calculate() {
+	var premium = document.getElementById("premium").value;
+	var fees = document.getElementById("fees").value;
+	var instfee = document.getElementById("instfee").value;
+	var nettotalprem = premium - fees;
+	var downpayment10 = nettotalprem * .2 + parseInt(fees) + parseInt(instfee);
+	var downpayment4 = nettotalprem * .4 + parseInt(fees) + parseInt(instfee);
+	var downpayment2 = nettotalprem * .6 + parseInt(fees) + parseInt(instfee);	
+
+	var remainingpay10 = (nettotalprem * .8) / 9 + parseInt(instfee);
+	var remainingpay4 = (nettotalprem * .6) / 3 + parseInt(instfee);
+	var remainingpay2 = (nettotalprem * .4) + parseInt(instfee);	
+
+	document.write("Premium: ");
+	document.write(premium);
+	document.write("<br>Fees: ");
+	document.write(fees);
+	document.write("<br>Installment Fee: ");
+	document.write(instfee + "<br>");
+	
+document.write ("<table border='1'>");
+
+document.write("<tr><td>Down Payment (10 Pay):</td><td>$" + Math.round(downpayment10) + "</td><td>Down Payment (4 Pay):</td><td>$" + Math.round(downpayment4) + "</td><td>Down Payment (2 Pay):</td><td>$" + Math.round(downpayment2) + "</td></tr>");
+
+	
+for (let i = 1; i < 10; i++) {
+ 
+document.write("<tr><td>Payment " + i + ": </td><td>$" + Math.round(remainingpay10) + "</td><td>");
+
+if (i < 4) {
+document.write("Payment " + i + ": </td><td>$" + Math.round(remainingpay4) + "</td><td>");
+} else {
+document.write("<td></td>");
+}
+if (i < 2) {
+document.write("Payment " + i + ": </td><td>$" + Math.round(remainingpay2) + "</td>");
+} else {
+document.write("<td></td>");
+}
+
+document.write("</tr>");
+
+}
+document.write("</table>");
+
+}
+
+</script>
+
+<button onclick="location.refresh()">REFRESH</button>
